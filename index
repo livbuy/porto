@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Saya</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0f172a;
+    color: white;
+    overflow-x: hidden;
+}
 
+nav {
+    padding: 2rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.hero {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+h1 { font-size: 4rem; margin-bottom: 0.5rem; }
+h1 span { color: #38bdf8; }
+
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #38bdf8;
+    color: #0f172a;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.1); /* Animasi membesar saat di-hover */
+}
+
+/* --- ANIMASI --- */
+
+.fade-in {
+    animation: fadeIn 1.5s ease-out;
+}
+
+.slide-up {
+    animation: slideUp 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.projects {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 50px;
+}
+
+.card {
+    width: 250px;
+    height: 300px;
+    background: #1e293b;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #334155;
+    transition: 0.4s;
+}
+
+.card:hover {
+    border-color: #38bdf8;
+    transform: translateY(-10px); /* Melayang saat di-hover */
+}
+    <nav>
+        <div class="logo">Portofolio.</div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Halo, Saya <span>[Nama Kamu]</span></h1>
+            <p class="slide-up">Seorang Creative Designer & Web Developer yang hobi bikin hal-hal keren.</p>
+            <a href="#" class="btn-primary">Lihat Karya</a>
+        </div>
+    </section>
+
+    <section class="projects">
+        <div class="card fade-in">Proyek 1</div>
+        <div class="card fade-in">Proyek 2</div>
+        <div class="card fade-in">Proyek 3</div>
+    </section>
+</body>
+</html>
