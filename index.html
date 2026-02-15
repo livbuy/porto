@@ -3,119 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SECRET FILE // TOP SECRET</title>
+    <title>A Special Message For You</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;700&display=swap');
-        
         body { 
             margin: 0; 
-            background-color: #000; 
-            color: #0f0; /* Warna Hijau Matrix */
-            font-family: 'Rajdhani', sans-serif;
+            background-color: #F5F5DC; /* Cream Background */
+            color: #2F4F4F; /* Dark Slate Gray Text */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
         }
 
         /* --- PASSWORD SCREEN --- */
         #password-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10000;
+            background: #F5F5DC; z-index: 10000;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            border: 5px solid #0f0;
-            box-sizing: border-box;
         }
-        #password-screen h1 { font-family: 'Orbitron', sans-serif; color: #0f0; }
+        #password-screen h1 { font-weight: 300; letter-spacing: 2px; }
         #password-input {
-            padding: 15px; font-size: 18px;
-            background: #000; border: 2px solid #0f0;
-            color: #0f0; text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            margin-top: 20px;
+            padding: 10px; font-size: 16px;
+            background: transparent; border: none;
+            border-bottom: 2px solid #2F4F4F;
+            color: #2F4F4F; text-align: center;
+            margin-top: 20px; outline: none;
         }
         #submit-btn {
-            padding: 15px 30px; margin-top: 20px;
-            background: #0f0; color: #000;
-            border: none; font-family: 'Orbitron', sans-serif;
-            cursor: pointer; font-size: 16px;
+            padding: 10px 25px; margin-top: 20px;
+            background: #C5A059; /* Soft Gold */
+            color: white; border: none;
+            cursor: pointer; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 1px;
+            border-radius: 20px;
         }
-        #submit-btn:hover { background: #fff; }
-        #error-msg { color: #f00; margin-top: 10px; display: none; }
+        #submit-btn:hover { background: #b08d4b; }
+        #error-msg { color: #8B0000; margin-top: 10px; display: none; font-size: 14px; }
 
-        /* --- LOADING SCREEN --- */
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 9999;
-            display: none; flex-direction: column;
-            justify-content: center; align-items: center;
-        }
-        .scanner {
-            width: 200px; height: 2px; background: #0f0;
-            box-shadow: 0 0 10px #0f0;
-            animation: scan 2s infinite;
-        }
-        @keyframes scan {
-            0% { transform: translateY(-50px); }
-            50% { transform: translateY(50px); }
-            100% { transform: translateY(-50px); }
-        }
-
-        /* --- CONTENT (Hidden by default) --- */
-        #content { display: none; padding: 50px; }
-
-        h1 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; text-shadow: 0 0 10px #0f0; }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 50px;
-        }
-        .card {
-            border: 1px solid #0f0;
+        /* --- CONTENT --- */
+        #content { 
+            display: none; 
+            text-align: center; 
             padding: 20px;
-            background: rgba(0, 20, 0, 0.5);
+            animation: fadeIn 1.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 { font-weight: 200; font-size: 2.5em; margin-bottom: 10px; }
+        p { font-weight: 300; line-height: 1.8; max-width: 600px; margin: 0 auto 30px; }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #C5A059;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s;
-            cursor: pointer;
         }
-        .card:hover {
-            box-shadow: 0 0 15px #0f0;
-            transform: scale(1.05);
-        }
-        .card h3 { font-family: 'Orbitron', sans-serif; color: #fff; }
+        .cta-btn:hover { background: #b08d4b; }
     </style>
 </head>
 <body>
 
 <div id="password-screen">
-    <h1>INPUT AUTHORIZATION KEY</h1>
-    <input type="password" id="password-input" placeholder="Enter Key">
-    <button id="submit-btn" onclick="checkPassword()">ACCESS</button>
-    <p id="error-msg">KEY INVALID // ACCESS DENIED</p>
-</div>
-
-<div id="loader">
-    <h1>SCANNING AUTHORIZATION...</h1>
-    <div class="scanner"></div>
+    <h1>Enter Key</h1>
+    <input type="password" id="password-input" placeholder="•••••••">
+    <button id="submit-btn" onclick="checkPassword()">Unlock</button>
+    <p id="error-msg">Incorrect Key</p>
 </div>
 
 <div id="content">
-    <h1>// DOSSIER PERSONAL: [NAMA ORANG]</h1>
-    <p>Akses Terenkripsi. Data berikut diklasifikasikan sebagai SANGAT BERHARGA.</p>
-
-    <div class="grid">
-        <div class="card">
-            <h3>// KELEBIHAN</h3>
-            <p>Orang ini sangat luar biasa dalam [hal yang kamu kagumi].</p>
-        </div>
-        <div class="card">
-            <h3>// MEMORI</h3>
-            <p>Momen terbaik adalah saat kita [kenangan indah bersama].</p>
-        </div>
-        <div class="card">
-            <h3>// PESAN</h3>
-            <p>Terima kasih sudah menjadi bagian penting dalam hidupku.</p>
-        </div>
-    </div>
+    <h1>Hello, [Nama]</h1>
+    <p>
+        I just wanted to take a moment to say how much I appreciate you. 
+        Your presence makes everything better, and I'm really glad you're in my life.
+        <br><br>
+        <i>[Pesan personal tambahan]</i>
+    </p>
+    <a href="https://yourlink.com" class="cta-btn">Click Here</a>
 </div>
 
 <script>
@@ -123,13 +98,7 @@
         var password = document.getElementById("password-input").value;
         if (password === "1290100") {
             document.getElementById("password-screen").style.display = "none";
-            document.getElementById("loader").style.display = "flex";
-            
-            // Tampilkan konten setelah loader 3 detik
-            setTimeout(function() {
-                document.getElementById("loader").style.display = "none";
-                document.getElementById("content").style.display = "block";
-            }, 3000);
+            document.getElementById("content").style.display = "block";
         } else {
             document.getElementById("error-msg").style.display = "block";
         }
