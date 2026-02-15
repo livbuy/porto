@@ -19,27 +19,56 @@
             to { opacity: 1; }
         }
 
-        h1 { font-weight: 200; font-size: 2.5em; margin-bottom: 30px; }
+        h1 { font-weight: 200; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { font-weight: 300; margin-bottom: 40px; color: #888; }
         
         .gallery-container {
             max-width: 800px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 30px;
         }
         
-        .gallery-item {
-            background-color: white;
-            padding: 10px;
+        /* --- CARD FLIP EFFECT --- */
+        .card-container {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
         }
-        .gallery-item:hover { transform: scale(1.03); }
+        .card-container:hover .card { transform: rotateY(180deg); }
         
-        img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
-        p { font-size: 14px; font-weight: 300; margin-top: 10px; }
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .front { background-color: white; }
+        .back {
+            background-color: #C5A059; /* Gold Background */
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        img { width: 100%; height: 220px; object-fit: cover; }
+        .card-text { font-size: 14px; font-weight: 300; padding: 10px; }
+        .back p { font-size: 16px; font-weight: 400; line-height: 1.5; }
 
         .back-btn {
             display: inline-block;
@@ -58,19 +87,41 @@
 <body>
 
     <h1>Our Special Moments</h1>
+    <p class="subtitle">Hover/Click on each memory</p>
 
     <div class="gallery-container">
-        <div class="gallery-item">
-            <img src="foto1.jpg" alt="Memory 1">
-            <p>Tempat pertama kali kita ketemu.</p>
+        <div class="card-container">
+            <div class="card">
+                <div class="front">
+                    <img src="foto1.jpg" alt="Memory 1">
+                    <p class="card-text">Tempat pertama kali kita ketemu.</p>
+                </div>
+                <div class="back">
+                    <p>I still remember how nervous I was that day, but seeing you made it all worth it.</p>
+                </div>
+            </div>
         </div>
-        <div class="gallery-item">
-            <img src="foto2.jpg" alt="Memory 2">
-            <p>Hari paling lucu waktu itu.</p>
+        <div class="card-container">
+            <div class="card">
+                <div class="front">
+                    <img src="foto2.jpg" alt="Memory 2">
+                    <p class="card-text">Hari paling lucu waktu itu.</p>
+                </div>
+                <div class="back">
+                    <p>That laugh is my favorite sound in the world.</p>
+                </div>
+            </div>
         </div>
-        <div class="gallery-item">
-            <img src="foto3.jpg" alt="Memory 3">
-            <p>Makasih ya buat semuanya.</p>
+        <div class="card-container">
+            <div class="card">
+                <div class="front">
+                    <img src="foto3.jpg" alt="Memory 3">
+                    <p class="card-text">Makasih ya buat semuanya.</p>
+                </div>
+                <div class="back">
+                    <p>Thank you for being you. I love you!</p>
+                </div>
+            </div>
         </div>
     </div>
 
