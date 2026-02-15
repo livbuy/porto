@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Message</title>
+    <title>Final Surprise</title>
     <style>
         body { 
             margin: 0; 
@@ -16,25 +16,67 @@
             height: 100vh;
             text-align: center;
             overflow: hidden;
-            animation: fadeIn 2s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
-        .final-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 50px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 500px;
+        /* --- BOX CONTAINER --- */
+        #box-container {
+            cursor: pointer;
+            transition: transform 0.5s;
         }
+        #box-container:hover { transform: scale(1.05); }
 
-        h1 { font-weight: 200; font-size: 3em; margin-bottom: 20px; color: #C5A059; }
-        p { font-weight: 300; line-height: 1.8; font-size: 1.2em; }
+        /* --- GIFT BOX ANIMATION --- */
+        .gift-box {
+            width: 150px;
+            height: 150px;
+            background: #C5A059; /* Gold */
+            position: relative;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: #F5F5DC; /* Cream Ribbon */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: #F5F5DC; /* Cream Ribbon */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .lid {
+            width: 170px;
+            height: 40px;
+            background: #b08d4b; /* Darker Gold */
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            border-radius: 5px;
+            transition: transform 0.5s, top 0.5s;
+        }
         
+        /* Animation Classes */
+        .open .lid { transform: translateY(-50px) rotate(-10deg); top: -40px; }
+
+        /* --- HIDDEN MESSAGE --- */
+        #hidden-message {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        h1 { font-weight: 200; font-size: 2.5em; color: #C5A059; margin-bottom: 10px; }
+        p { font-weight: 300; line-height: 1.8; font-size: 1.2em; max-width: 500px; margin: 0 auto; }
+
         .back-btn {
             display: inline-block;
             margin-top: 40px;
@@ -51,16 +93,35 @@
 </head>
 <body>
 
-    <div class="final-card">
-        <h1>Final Destination</h1>
+    <div id="box-container" onclick="openGift()">
+        <div class="gift-box">
+            <div class="lid"></div>
+        </div>
+        <p style="margin-top: 30px; font-weight: 300; font-size: 14px;">Click to Open</p>
+    </div>
+
+    <div id="hidden-message">
+        <h1>For You</h1>
         <p>
-            This is the end of the secret journey, but just the beginning of more memories together. 
-            I hope you liked this little surprise.
+            You are the best thing that ever happened to me. Thank you for being in my life. 
+            Here's to more adventures together!
             <br><br>
-            <strong>I cherish you.</strong>
+            <strong>Love you.</strong>
         </p>
         <a href="gallery.html" class="back-btn">&larr; Back to Gallery</a>
     </div>
 
+    <script>
+        function openGift() {
+            document.querySelector('.gift-box').classList.add('open');
+            setTimeout(function() {
+                document.getElementById('box-container').style.display = 'none';
+                document.getElementById('hidden-message').style.display = 'block';
+                setTimeout(function() {
+                    document.getElementById('hidden-message').style.opacity = '1';
+                }, 100);
+            }, 600);
+        }
+    </script>
 </body>
 </html>
