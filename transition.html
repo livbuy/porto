@@ -2,113 +2,97 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Our Timeline</title>
+    <title>Minigame</title>
     <style>
         body { 
             margin: 0; 
-            background-color: #F5F5DC; /* Cream Background */
-            color: #2F4F4F; /* Dark Slate Gray Text */
+            background-color: #F5F5DC; 
+            color: #2F4F4F;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             text-align: center;
             padding: 50px 20px;
-            
-            /* --- FITUR SCROLL --- */
-            overflow-y: auto; 
-            height: auto;
+            overflow-y: auto;
         }
 
-        h1 { font-weight: 200; font-size: 2.5em; margin-bottom: 10px; }
-        .subtitle { font-weight: 300; margin-bottom: 40px; color: #888; }
-        
-        /* --- GRID GALLERY SYSTEM --- */
-        .grid-container {
-            max-width: 1000px;
+        .quiz-container {
+            max-width: 600px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .grid-item {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .grid-item:hover { transform: scale(1.03); }
-
-        .grid-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover; /* Biar foto tidak gepeng */
-        }
-
-        .grid-caption {
-            padding: 15px;
-            font-size: 14px;
-            text-align: left;
-        }
-        .date {
-            font-weight: bold;
-            color: #C5A059; /* Gold color for date */
-            margin-bottom: 5px;
+        h1 { font-weight: 200; font-size: 2em; color: #C5A059; }
+        .question { font-size: 1.2em; margin-bottom: 20px; font-weight: 400; }
+        
+        .option-btn {
             display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s;
         }
-        .description {
-            font-weight: 300;
-            color: #555;
+        .option-btn:hover { background-color: #e0e0e0; }
+        
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
         }
+        .correct { color: green; }
+        .wrong { color: red; }
 
-        /* --- TOMBOL NAVIGASI --- */
-        .nav-btn {
-            display: inline-block;
-            margin-top: 50px;
+        .next-btn {
+            display: none;
+            margin-top: 30px;
             padding: 10px 25px;
             background: #C5A059;
             color: white;
             text-decoration: none;
             border-radius: 20px;
-            transition: 0.3s;
         }
-        .nav-btn:hover { background: #b08d4b; }
     </style>
 </head>
 <body>
 
-    <h1>Our Journey Together</h1>
-    <p class="subtitle">Setiap momen berharga</p>
+    <h1>Minigame Waktu!</h1>
+    <p>Jawab pertanyaan ini buat lanjut ya!</p>
 
-    <div class="grid-container">
+    <div class="quiz-container">
+        <div id="quiz">
+            <p class="question">Apa makanan pertama yang kita makan bareng?</p>
+            <button class="option-btn" onclick="checkAnswer(false)">Sushi</button>
+            <button class="option-btn" onclick="checkAnswer(true)">Nasi Goreng</button>
+            <button class="option-btn" onclick="checkAnswer(false)">Pizza</button>
+        </div>
         
-        <div class="grid-item">
-            <img src="foto4.jpg" alt="Memory">
-            <div class="grid-caption">
-                <span class="date">14 Februari 2025</span>
-                <span class="description">Jalan-jalan pertama ke pantai.</span>
-            </div>
-        </div>
+        <p id="result"></p>
+        <a href="final.html" class="next-btn" id="next-btn">Lanjut ke Kejutan &rarr;</a>
+    </div>
 
-        <div class="grid-item">
-            <img src="foto5.jpg" alt="Memory">
-            <div class="grid-caption">
-                <span class="date">20 Mei 2025</span>
-                <span class="description">Nonton konser bareng.</span>
-            </div>
-        </div>
-
-        <div class="grid-item">
-            <img src="foto6.jpg" alt="Memory">
-            <div class="grid-caption">
-                <span class="date">10 Oktober 2025</span>
-                <span class="description">Dinner anniversary kita.</span>
-            </div>
-        </div>
-
-        </div>
-
-    <a href="final.html" class="nav-btn">Continue to Surprise &rarr;</a>
-
+    <script>
+        function checkAnswer(isCorrect) {
+            var result = document.getElementById("result");
+            var nextBtn = document.getElementById("next-btn");
+            
+            if (isCorrect) {
+                result.innerHTML = "Yeay, Benar! 🎉";
+                result.className = "correct";
+                result.style.display = "block";
+                nextBtn.style.display = "inline-block";
+                document.getElementById("quiz").style.display = "none";
+            } else {
+                result.innerHTML = "Yah, salah! Coba lagi ya... 🤔";
+                result.className = "wrong";
+                result.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
