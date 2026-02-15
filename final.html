@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Message</title>
+    <style>
+        body { 
+            margin: 0; 
+            background-color: #2F4F4F; /* Dark Slate Background */
+            color: #F5F5DC; /* Cream Text */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            animation: fadeIn 2s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .final-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+        }
+
+        h1 { font-weight: 200; font-size: 3em; margin-bottom: 20px; color: #C5A059; }
+        p { font-weight: 300; line-height: 1.8; font-size: 1.2em; }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 20px;
+            color: #F5F5DC;
+            text-decoration: none;
+            font-size: 14px;
+            border: 1px solid #F5F5DC;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: #F5F5DC; color: #2F4F4F; }
+    </style>
+</head>
+<body>
+
+    <div class="final-card">
+        <h1>Final Destination</h1>
+        <p>
+            This is the end of the secret journey, but just the beginning of more memories together. 
+            I hope you liked this little surprise.
+            <br><br>
+            <strong>I cherish you.</strong>
+        </p>
+        <a href="gallery.html" class="back-btn">&larr; Back to Gallery</a>
+    </div>
+
+</body>
+</html>
