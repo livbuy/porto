@@ -3,206 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Peneliti - FJK Research Gate</title>
+    <title>Special Memory</title>
     <style>
-        /* --- CSS MODERN PROFESSIONAL (Sama dengan Beranda) --- */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f9; color: #333; }
-        
-        /* --- HEADER --- */
-        .sinta-header {
-            background-color: #002147;
-            color: white;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .sinta-logo-area { display: flex; align-items: center; gap: 15px; }
-        .sinta-logo-circle {
-            width: 40px; height: 40px; background: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold; color: #002147; font-size: 18px; border: 2px solid #ffcc00;
-        }
-        .sinta-title h1 { font-size: 18px; margin: 0; text-transform: uppercase; color: white; }
-        .sinta-title p { margin: 0; font-size: 10px; color: #ffcc00; font-weight: bold; }
-
-        .sinta-nav { display: flex; gap: 30px; }
-        .sinta-nav a { 
-            color: white; text-decoration: none; font-size: 14px; 
-            font-weight: 500; text-transform: uppercase; 
-            transition: color 0.3s;
-        }
-        .sinta-nav a:hover { color: #ffcc00; }
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .hamburger span { width: 25px; height: 3px; background: white; border-radius: 2px; }
-
-        /* --- PAGE HEADER --- */
-        .page-header {
-            background-color: #fff;
-            padding: 40px 50px;
-            border-bottom: 1px solid #eee;
-        }
-        .page-header h1 { font-size: 2.5em; color: #002147; margin: 0; }
-        .page-header p { color: #666; margin-top: 10px; }
-
-        /* --- CONTENT --- */
-        .main-content { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-
-        /* PETINGGI SECTION */
-        .section-title { color: #002147; margin-bottom: 25px; border-left: 5px solid #ffcc00; padding-left: 15px; }
-        
-        .petinggi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-        
-        /* Kartu Petinggi (Highlight) */
-        .petinggi-card {
-            background: #fff;
-            border-radius: 10px;
-            padding: 25px;
+        body { 
+            margin: 0; 
+            background-color: #F5F5DC; /* Cream Background */
+            color: #2F4F4F; /* Dark Slate Gray Text */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             text-align: center;
-            border: 2px solid #ffcc00;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 50px 20px;
+            animation: fadeIn 1.5s;
         }
-        .petinggi-card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #eee; }
-        .petinggi-card h3 { color: #002147; margin: 15px 0 5px; }
-        .petinggi-card p { color: #555; font-size: 14px; margin: 0; }
-        .badge { background: #002147; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; display: inline-block; margin-top: 10px; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-        /* DAFTAR PENELITI TABLE */
-        .table-container {
-            background: white;
+        h1 { font-weight: 200; font-size: 2.5em; margin-bottom: 30px; }
+        
+        .gallery-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            background-color: white;
+            padding: 10px;
             border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            overflow-x: auto; /* Agar tabel scroll di HP */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
         }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th, td { text-align: left; padding: 15px; border-bottom: 1px solid #eee; }
-        th { background-color: #f8f9fa; color: #002147; font-weight: 600; }
-        tr:hover { background-color: #f1f4f8; }
+        .gallery-item:hover { transform: scale(1.03); }
+        
+        img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+        p { font-size: 14px; font-weight: 300; margin-top: 10px; }
 
-        /* --- FOOTER --- */
-        footer { background-color: #002147; color: #ccc; padding: 40px; text-align: center; margin-top: 50px; font-size: 14px; }
-
-        /* --- MOBILE RESPONSIVE --- */
-        @media screen and (max-width: 768px) {
-            .sinta-header { padding: 15px 20px; }
-            .sinta-nav { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: #002147; padding: 10px 0; }
-            .sinta-nav.active { display: flex; }
-            .sinta-nav a { padding: 15px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .hamburger { display: flex; }
-            .page-header { padding: 30px 20px; }
+        .back-btn {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 10px 20px;
+            color: #C5A059;
+            text-decoration: none;
+            font-size: 14px;
+            border: 1px solid #C5A059;
+            border-radius: 20px;
+            transition: 0.3s;
         }
+        .back-btn:hover { background: #C5A059; color: white; }
     </style>
 </head>
 <body>
 
-<header class="sinta-header">
-    <div class="sinta-logo-area">
-        <div class="sinta-logo-circle">FJK</div>
-        <div class="sinta-title">
-            <h1>FJK Research Gate</h1>
-            <p>EVOLUTIONARY INDEX PLATFORM</p>
-        </div>
-    </div>
-    <div class="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-    </div>
-    <nav class="sinta-nav" id="mainNav">
-        <a href="index.html">Beranda</a>
-        <a href="authors.html" style="color: #ffcc00;">Peneliti</a>
-        <a href="sources.html">Arsip</a>
-    </nav>
-</header>
+    <h1>Our Special Moments</h1>
 
-<div class="page-header">
-    <h1>Direktori Peneliti</h1>
-    <p>Daftar ahli, akademisi, dan petinggi yang terindeks di FJK Research Gate.</p>
-</div>
-
-<main class="main-content">
-    
-    <h2 class="section-title">Dewan Penasihat Utama</h2>
-    <div class="petinggi-grid">
-        <div class="petinggi-card">
-            <img src="https://via.placeholder.com/100?text=Fajar" alt="Fajar Kurniawan">
-            <h3>Fajar Kurniawan, Ph.D.</h3>
-            <p>Ketua Peneliti Independen</p>
-            <span class="badge">Founder</span>
+    <div class="gallery-container">
+        <div class="gallery-item">
+            <img src="foto1.jpg" alt="Memory 1">
+            <p>Tempat pertama kali kita ketemu.</p>
         </div>
-        <div class="petinggi-card">
-            <img src="https://via.placeholder.com/100?text=Dr.Hans" alt="Hans van Grap">
-            <h3>Dr. Hans van Grap</h3>
-            <p>Kepala Divisi Paleontologi Sintetik</p>
-            <span class="badge">IPA Zurich</span>
+        <div class="gallery-item">
+            <img src="foto2.jpg" alt="Memory 2">
+            <p>Hari paling lucu waktu itu.</p>
         </div>
-        <div class="petinggi-card">
-            <img src="https://via.placeholder.com/100?text=Prof.Siti" alt="Prof. Siti Rahayu">
-            <h3>Prof. Siti Rahayu, M.Sc.</h3>
-            <p>Analisis Genetika Non-Bipedal</p>
-            <span class="badge">Dewan Ahli</span>
+        <div class="gallery-item">
+            <img src="foto3.jpg" alt="Memory 3">
+            <p>Makasih ya buat semuanya.</p>
         </div>
     </div>
 
-    <h2 class="section-title">Seluruh Peneliti (124 Terindeks)</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nama Peneliti</th>
-                    <th>Afiliasi</th>
-                    <th>Spesialisasi</th>
-                    <th>Impact Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dr. Budi Santoso</td>
-                    <td>Universitas Indonesia</td>
-                    <td>Antropologi Forensik</td>
-                    <td>9.2</td>
-                </tr>
-                <tr>
-                    <td>Dr. Maria Elena</td>
-                    <td>Zurich University</td>
-                    <td>Paleohistologi</td>
-                    <td>8.9</td>
-                </tr>
-                <tr>
-                    <td>Ir. Andi Pratama</td>
-                    <td>IPA Jakarta</td>
-                    <td>Komputasi Biomekanika</td>
-                    <td>8.5</td>
-                </tr>
-                <tr>
-                    <td>Prof. Jean Dupont</td>
-                    <td>Paris Natural History</td>
-                    <td>Evolusi Primata</td>
-                    <td>9.0</td>
-                </tr>
-                </tbody>
-        </table>
-    </div>
-</main>
-
-<footer>
-    <p>&copy; 2026 FJK Research Gate. All Rights Reserved.</p>
-    <p style="font-size: 12px; margin-top: 10px;">Institute of Paleontological Anomalies - Zurich</p>
-</footer>
-
-<script>
-    function toggleMenu() {
-        document.getElementById("mainNav").classList.toggle("active");
-    }
-</script>
+    <a href="index.html" class="back-btn">&larr; Back to Message</a>
 
 </body>
 </html>
