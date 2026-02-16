@@ -82,6 +82,28 @@
             transition: 0.3s;
         }
         .back-btn:hover { background: #C5A059; color: white; }
+        
+        .spotify-player {
+        background-color: #2F4F4F;
+        color: #F5F5DC;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .song-info { text-align: left; margin-left: 10px; }
+    .song-title { font-weight: bold; font-size: 14px; }
+    .artist { font-size: 12px; color: #aaa; }
+    .play-btn {
+        background: none; border: 2px solid #C5A059;
+        color: #C5A059; border-radius: 50%;
+        width: 40px; height: 40px; cursor: pointer;
+        font-size: 16px; transition: 0.3s;
+    }
     </style>
 </head>
 <body>
@@ -124,12 +146,36 @@
             </div>
         </div>
     </div>
+    <div class="spotify-player">
+    <div class="song-info">
+        <div class="song-title">Judul Lagu Spesial</div>
+        <div class="artist">Nama Penyanyi</div>
+    </div>
+    <button class="play-btn" onclick="togglePlay()" id="play-button">▶</button>
+</div>
+<audio id="gallery-music" src="lagu-spesial.mp3" loop></audio>
 
     <div style="margin-top: 50px;">
     <a href="transition.html" class="back-btn" style="background:#C5A059; color:white;">Continue to ... &rarr;</a>
     <br><br>
     <a href="index.html" style="font-size:12px; color:#888;">Back to Message</a>
 </div>
+    <script>
+    var music = document.getElementById("gallery-music");
+    var playBtn = document.getElementById("play-button");
+    var isPlaying = false;
+
+    function togglePlay() {
+        if (isPlaying) {
+            music.pause();
+            playBtn.innerHTML = "▶";
+        } else {
+            music.play();
+            playBtn.innerHTML = "⏸";
+        }
+        isPlaying = !isPlaying;
+    }
+</script>
 
 </body>
 </html>
