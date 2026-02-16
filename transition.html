@@ -64,43 +64,82 @@
     <h1>Minigame Waktu!</h1>
     <p>Jawab pertanyaan ini buat lanjut ya!</p>
 
-    <div class="quiz-container">
-        <div id="quiz">
-            <p class="question">Apa makanan pertama yang kita makan bareng?</p>
-            <button class="option-btn" onclick="checkAnswer(false)">Sushi</button>
-            <button class="option-btn" onclick="checkAnswer(true)">Nasi Goreng</button>
-            <button class="option-btn" onclick="checkAnswer(false)">Pizza</button>
+   <div class="quiz-container">
+        <div id="quiz-box">
+            <p class="question" id="question-text"></p>
+            <div id="options-box"></div>
         </div>
         
         <p id="result"></p>
-         <div id="quiz">
-            <p class="question">Apa makanan pertama yang kita makan bareng?</p>
-            <button class="option-btn" onclick="checkAnswer(false)">Sushi</button>
-            <button class="option-btn" onclick="checkAnswer(true)">Nasi Goreng</button>
-            <button class="option-btn" onclick="checkAnswer(false)">Pizza</button>
-        </div>
         
-        <p id="result"></p>
+        
         <a href="final.html" class="next-btn" id="next-btn">Lanjut ke Kejutan &rarr;</a>
     </div>
 
     <script>
-        function checkAnswer(isCorrect) {
-            var result = document.getElementById("result");
-            var nextBtn = document.getElementById("next-btn");
+       var quizData = [
+            {
+                question: "Apa makanan pertama yang kita makan bareng?",
+                options: ["Sushi", "Nasi Goreng", "Pizza"],
+                correct: 1 // Index jawaban benar (Nasi Goreng adalah index ke-1)
+            },
+            {
+                question: "Di mana kita pertama kali foto bareng?",
+                options: ["Mall", "Pantai", "Taman"],
+                correct: 0 // Index jawaban benar (Mall adalah index ke-0)
+            },
+            {
+                question: "Tanggal berapa kita jadian?",
+                options: ["10 Januari", "14 Februari", "20 Mei"],
+                correct: 1 // Index jawaban benar (14 Februari adalah index ke-1)
+            }
+        ];
+
+        var currentQuestion = 0;
+
+        function loadQuestion() {
+            var q = quizData[currentQuestion];
+            document.getElementById("question-text").innerText = q.question;
+            var optionsBox = document.getElementById("options-box");
+            optionsBox.innerHTML = "";
             
-            if (isCorrect) {
-                result.innerHTML = "Yeay, Benar! 🎉";
+            q.options.forEach(function(option, index) {
+                var btn = document.createElement("button");
+                btn.innerText = option;
+                btn.className = "option-btn";
+                btn.onclick = function() { checkAnswer(index); };
+                optionsBox.appendChild(btn);
+            });
+            document.getElementById("result").style.display = "none";
+        }
+
+        function checkAnswer(selectedIndex) {
+            var q = quizData[currentQuestion];
+            var result = document.getElementById("result");
+            
+            if (selectedIndex === q.correct) {
+                result.innerText = "Benar! 🎉";
                 result.className = "correct";
                 result.style.display = "block";
-                nextBtn.style.display = "inline-block";
-                document.getElementById("quiz").style.display = "none";
+                
+                currentQuestion++;
+                
+                if (currentQuestion < quizData.length) {
+                    setTimeout(loadQuestion, 1000); // Lanjut soal berikutnya setelah 1 detik
+                } else {
+                    document.getElementById("quiz-box").style.display = "none";
+                    document.getElementById("next-btn").style.display = "inline-block";
+                    result.innerText = "Luar biasa! Kamu ingat semuanya! ❤️";
+                }
             } else {
-                result.innerHTML = "Yah, salah! Coba lagi ya... 🤔";
+                result.innerText = "Yah, salah! Coba lagi ya... 🤔";
                 result.className = "wrong";
                 result.style.display = "block";
             }
         }
+
+        loadQuestion(); // Mulai kuis saat halaman dimuat
+    </script>
     </script>
 </body>
 </html>
