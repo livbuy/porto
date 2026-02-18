@@ -3,124 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Surprise</title>
+    <title>Penutup Spesial</title>
+    
+    
+
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+
     <style>
         body { 
-            margin: 0; 
-            background-color: #2F4F4F; /* Dark Slate Background */
-            color: #F5F5DC; /* Cream Text */
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            overflow: hidden;
+            background-color: #F5F5DC; 
+            font-family: 'Arial', sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            color: #2F4F4F;
+            margin: 0;
         }
-
-        /* --- BOX CONTAINER --- */
-        #box-container {
-            cursor: pointer;
-            transition: transform 0.5s;
+        .container { 
+            max-width: 400px; 
+            margin: 20px auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 20px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
         }
-        #box-container:hover { transform: scale(1.05); }
-
-        /* --- GIFT BOX ANIMATION --- */
-        .gift-box {
-            width: 150px;
-            height: 150px;
-            background: #C5A059; /* Gold */
-            position: relative;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .gift-box::before {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 100%;
-            background: #F5F5DC; /* Cream Ribbon */
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .gift-box::after {
-            content: '';
-            position: absolute;
+        h1 { color: #C5A059; font-size: 24px; }
+        
+        #video-box {
             width: 100%;
-            height: 30px;
-            background: #F5F5DC; /* Cream Ribbon */
-            top: 50%;
-            transform: translateY(-50%);
+            border-radius: 15px;
+            overflow: hidden;
+            background: #000;
+            line-height: 0;
         }
-        .lid {
-            width: 170px;
-            height: 40px;
-            background: #b08d4b; /* Darker Gold */
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            border-radius: 5px;
-            transition: transform 0.5s, top 0.5s;
+        video, img { width: 100%; height: auto; border-radius: 15px; }
+        canvas { display: none; }
+        
+        textarea {
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 12px; 
+            border: 1px solid #ddd;
+            margin: 15px 0; 
+            font-family: inherit; 
+            resize: none; 
+            box-sizing: border-box;
         }
         
-        /* Animation Classes */
-        .open .lid { transform: translateY(-50px) rotate(-10deg); top: -40px; }
-
-        /* --- HIDDEN MESSAGE --- */
-        #hidden-message {
-            display: none;
-            opacity: 0;
-            transition: opacity 1s;
-        }
-        
-        h1 { font-weight: 200; font-size: 2.5em; color: #C5A059; margin-bottom: 10px; }
-        p { font-weight: 300; line-height: 1.8; font-size: 1.2em; max-width: 500px; margin: 0 auto; }
-
-        .back-btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 10px 20px;
-            color: #F5F5DC;
-            text-decoration: none;
-            font-size: 14px;
-            border: 1px solid #F5F5DC;
-            border-radius: 20px;
+        .btn {
+            padding: 12px 20px; 
+            border: none; 
+            border-radius: 50px;
+            cursor: pointer; 
+            font-weight: bold;
             transition: 0.3s;
+            width: 100%;
+            margin-bottom: 10px;
         }
-        .back-btn:hover { background: #F5F5DC; color: #2F4F4F; }
+        .btn-capture { background: #C5A059; color: white; }
+        .btn-send { background: #2F4F4F; color: white; display: none; }
+        .btn-retake { background: #888; color: white; display: none; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <div id="box-container" onclick="openGift()">
-        <div class="gift-box">
-            <div class="lid"></div>
-        </div>
-        <p style="margin-top: 30px; font-weight: 300; font-size: 14px;">Click to Open</p>
-    </div>
+    <div class="container">
+        <h1>Abadikan Momen ❤️</h1>
+        <p>Ambil foto ekspresimu dan tulis sesuatu...</p>
 
-    <div id="hidden-message">
-        <h1>For You</h1>
-        <p>
-            You are the best thing that ever happened to me. Thank you for being in my life. 
-            Here's to more adventures together!
-            <br><br>
-            <strong>Love you.</strong>
-        </p>
-        <a href="gallery.html" class="back-btn">&larr; Back to Gallery</a>
+        <div id="video-box">
+            <video id="video" autoplay playsinline></video>
+            <img id="photo-preview" style="display:none;">
+        </div>
+        
+        <canvas id="canvas"></canvas>
+
+        <textarea id="perasaan" placeholder="Gimana perasaanmu hari ini?"></textarea>
+
+        <button id="btn-foto" class="btn btn-capture" onclick="takePhoto()">Ambil Foto 📸</button>
+        <button id="btn-send" class="btn btn-send" onclick="kirimKeDatabase()">Kirim Secara Pribadi 💌</button>
+        <button id="btn-retake" class="btn btn-retake" onclick="resetCamera()">Foto Ulang</button>
     </div>
 
     <script>
-        function openGift() {
-            document.querySelector('.gift-box').classList.add('open');
-            setTimeout(function() {
-                document.getElementById('box-container').style.display = 'none';
-                document.getElementById('hidden-message').style.display = 'block';
-                setTimeout(function() {
-                    document.getElementById('hidden-message').style.opacity = '1';
-                }, 100);
-            }, 600);
+        // ==========================================
+        // GANTI BAGIAN INI DENGAN KODE FIREBASE KAMU
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDbTnpzaB4lK8VqIbqcxY320PBy4nISloc",
+  authDomain: "fitur-kirim-foto.firebaseapp.com",
+  databaseURL: "https://fitur-kirim-foto-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "fitur-kirim-foto",
+  storageBucket: "fitur-kirim-foto.firebasestorage.app",
+  messagingSenderId: "1023237686167",
+  appId: "1:1023237686167:web:3ace2b6573685806273ad2",
+        };
+        // ==========================================
+
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const photoPreview = document.getElementById('photo-preview');
+        const btnFoto = document.getElementById('btn-foto');
+        const btnSend = document.getElementById('btn-send');
+        const btnRetake = document.getElementById('btn-retake');
+
+        // Minta Izin Kamera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream; })
+            .catch(err => { alert("Izin kamera ditolak!"); });
+
+        function takePhoto() {
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            photoPreview.src = canvas.toDataURL('image/png');
+            photoPreview.style.display = 'block';
+            video.style.display = 'none';
+            
+            btnFoto.style.display = 'none';
+            btnSend.style.display = 'block';
+            btnRetake.style.display = 'block';
+        }
+
+        function resetCamera() {
+            photoPreview.style.display = 'none';
+            video.style.display = 'block';
+            btnFoto.style.display = 'block';
+            btnSend.style.display = 'none';
+            btnRetake.style.display = 'none';
+        }
+
+        function kirimKeDatabase() {
+            const pesan = document.getElementById('perasaan').value;
+            const foto = photoPreview.src;
+
+            if(!pesan) { alert("Tulis pesan dulu ya!"); return; }
+
+            btnSend.innerText = "Mengirim...";
+            btnSend.disabled = true;
+
+            database.ref('pesan_si_dia/').push({
+                foto: foto,
+                perasaan: pesan,
+                waktu: new Date().toLocaleString()
+            }).then(() => {
+                alert("Berhasil terkirim! Terima kasih ya ❤️");
+                window.location.href = "index.html"; 
+            }).catch(err => {
+                alert("Gagal kirim: " + err.message);
+                btnSend.innerText = "Kirim Secara Pribadi 💌";
+                btnSend.disabled = false;
+            });
         }
     </script>
 </body>
