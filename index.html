@@ -98,7 +98,23 @@
             letter-spacing: 1px;
             transition: 0.3s;
         }
-        .cta-btn:hover { background: #b08d4b; }
+        .cta-btn:hover { background: #b08d4b; 
+
+                        .mini-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .mini-gallery img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 3px solid #C5A059;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
     </style>
 </head>
 <body>
@@ -139,6 +155,15 @@ Ingat, kamu itu lebih dari cukup. Kamu berharga, kamu dicintai, dan kehadiranmu 
 
 Terima kasih sudah lahir ke dunia ini, dan terima kasih sudah mengizinkan aku menjadi bagian dari hidupmu. Jangan pernah menyerah, ya? Aku percaya banget sama kamu.</i>
     </p>
+    <div id="main-content" style="display:none;">
+    <h1 id="pesan-selamat">Halo Cantik! ❤️</h1>
+    <p>Akhirnya kebuka juga ya... Aku punya sesuatu buat kamu.</p>
+
+    <div class="mini-gallery">
+        <img src="foto_dia1.jpg" alt="Foto 1">
+        <img src="foto_dia2.jpg" alt="Foto 2">
+        <img src="foto_dia3.jpg" alt="Foto 3">
+    </div>
     <a href="gallery.html" class="cta-btn">View Special Memory</a>
 </div>
 
